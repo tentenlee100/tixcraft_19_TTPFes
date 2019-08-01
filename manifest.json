@@ -1,0 +1,28 @@
+{
+  "name": "ttp festival 握手會相關拓元頁面簡化",
+  "version": "0.0.3",
+  "manifest_version": 2,
+  "description": "ttp festival 握手會相關拓元頁面簡化",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "128": "icons/icon-128.png"
+  },
+  "default_locale": "en",
+  "permissions": [
+    "https://tixcraft.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://tixcraft.com/*"
+      ],
+      "js": [
+        "scripts/jquery-3.4.1.min.js",
+        "scripts/contentscript.js"
+      ],
+      "run_at": "document_end"
+    }
+  ]
+}
+
+
