@@ -167,9 +167,13 @@ function updateOrderView() {
     `
   });
   table2 +=`</table>`
+
+  const sum = table1Array.reduce((sum , obj) => sum + obj.sum, 0)
+
   let insertHtml = `<div class="row mg-top">
   <div class="">
   <button id="showOrderButton">顯示 Team TP 握手會 報表</button>
+  <small style="margin-left: 12px;">共${sum}張</small>
   </div>
   <div class="order_item">
   <div id="ttpTable" style="display:none; margin-top: 12px;">
