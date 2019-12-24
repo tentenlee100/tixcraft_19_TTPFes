@@ -263,7 +263,7 @@ function updateEnterCodeView(){
 function main() {
   const url = window.location.href
   
-  if (url.indexOf("19_TTPFes") === -1) {
+  if (url.indexOf("20_TTP3rd") === -1) {
     // 是19_TTPFes才有用，其他網頁判斷是否為訂單紀錄無效
 
     if (url.indexOf("/order") > -1) {
@@ -277,15 +277,15 @@ function main() {
   // 更改驗證碼的頁面動作
   updateChechCodeView()
 
-  if (url.indexOf("/activity/detail/19_TTPFes") > -1){
+  if (url.indexOf("/activity/detail/20_TTP3rd") > -1){
     //主頁，將input改成 a連結
     updateMasterView()
   }
-  if (url.indexOf("/activity/game/19_TTPFes") > -1){
+  if (url.indexOf("/activity/game/20_TTP3rd") > -1){
     //場次列表頁，將input改成 a連結
     updateInputButtonToAButton()
   }
-  if (url.indexOf("/ticket/verify/19_TTPFes/") > -1){
+  if (url.indexOf("/ticket/verify/20_TTP3rd/") > -1){
     //輸入握手券頁面，強制將input轉大寫
     updateEnterCodeView()
   }
