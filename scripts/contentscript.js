@@ -28,7 +28,7 @@ function updateOrderView() {
     if (hasTTPOrder) {
       return
     }
-    hasTTPOrder = $(item).text().indexOf("TTP Festival 握手會") > -1
+    hasTTPOrder = $(item).text().indexOf("看見夕陽了嗎？") > -1
   })
 
   if (!hasTTPOrder){
@@ -61,7 +61,7 @@ function updateOrderView() {
             }else if (index3 === 1){
               //第一個欄位
               const text = $(item3).text()
-              const findIndex =  text.indexOf("展演廳 / ")
+              const findIndex =  text.indexOf("5號倉庫 / ")
               if(findIndex === -1 ){
                 if (orderInfo.hasOwnProperty("name")){
                   delete orderInfo.name
@@ -71,7 +71,7 @@ function updateOrderView() {
                 }
                 return
               } 
-              const name = text.substring(findIndex + "展演廳 / ".length ).trim()
+              const name = text.substring(findIndex + "5號倉庫 / ".length ).trim()
               orderInfo["name"] = name.split("-")[0]
               orderInfo["number"] = name.split("-")[1]
 
@@ -149,15 +149,17 @@ function updateOrderView() {
     <td>`
     table2 += `第${element.round}部 `
     if (element.round == "1"){
-      table2 += '12:00~13:00  (12:40排隊截止)'
+      table2 += '11:00~12:00  (11:40排隊截止)'
     }else if (element.round == "2"){
-      table2 += '13:30~14:30  (14:10排隊截止)'
+      table2 += '12:30~13:30  (13:10排隊截止)'
     }else if (element.round == "3"){
-      table2 += '15:00~16:00  (15:40排隊截止)'
+      table2 += '14:00~15:00  (14:40排隊截止)'
     }else if (element.round == "4"){
-      table2 += '16:30~17:30  (16:10排隊截止)'
+      table2 += '15:30~16:30  (16:10排隊截止)'
     }else if (element.round == "5"){
-      table2 += '18:00~19:00  (18:40排隊截止)'
+      table2 += '17:00~18:00  (17:40排隊截止)'
+    }else if (element.round == "6"){
+      table2 += '18:30~19:30  (19:10排隊截止)'
     }
     
     table2 += `</td>
