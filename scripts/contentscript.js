@@ -1,5 +1,3 @@
-// const log = chrome.extension.getBackgroundPage().console.log;
-
 function updateChechCodeView() {
   if (!$('#TicketForm_ticketPrice_01')) {
     return
@@ -8,8 +6,6 @@ function updateChechCodeView() {
   $('#TicketForm_ticketPrice_01').val(1)
   $('#TicketForm_ticketPrice_01').trigger('change')
 
-  // $('#TicketForm_agree').prop("checked", true);
-  // $('#TicketForm_agree').trigger('change')
   $('#TicketForm_agree').click()
   const html = $("html").html();
   const findString = `$(this).attr("name", "TicketForm[agree]`
@@ -108,8 +104,6 @@ function updateOrderView() {
     return a.name > b.name ? 1 : -1
   })
 
-  
-
   let table1 = `
   <table  class="table table-striped table-hover" style="width:100%;">
   <tr>
@@ -130,10 +124,8 @@ function updateOrderView() {
   table1 +=`</table>`
   
   const table2Array = table1Array.sort((a, b) => {
-    return a.round > b.round ? 1 : -1
+    return parseInt(a.round) > parseInt(b.round) ? 1 : -1
   })
-
-  console.log(table2Array);
 
   let table2 = `
   <table  class="table table-striped table-hover" style="width:100%; margin-top: 12px;">
@@ -160,6 +152,14 @@ function updateOrderView() {
       table2 += '17:00~18:00  (17:40排隊截止)'
     }else if (element.round == "6"){
       table2 += '18:30~19:30  (19:10排隊截止)'
+    }else if (element.round == "7"){
+      table2 += '12:00~13:00  (12:40排隊截止)'
+    }else if (element.round == "8"){
+      table2 += '13:30~14:30  (14:10排隊截止)'
+    }else if (element.round == "9"){
+      table2 += '15:00~16:00  (15:40排隊截止)'
+    }else if (element.round == "10"){
+      table2 += '16:30~17:30  (17:10排隊截止)'
     }
     
     table2 += `</td>
@@ -197,8 +197,6 @@ function updateOrderView() {
       $("#ttpTable").show()
     }
   })
-
-  console.log(allOrder)
 }
 
 function updateInputButtonToAButton(){
