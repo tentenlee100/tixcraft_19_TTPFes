@@ -103,6 +103,8 @@ function updateOrderView() {
   }, []).sort( (a, b) => {
     return a.name > b.name ? 1 : -1
   })
+  
+  const sum = table1Array.reduce((sum , obj) => sum + obj.sum, 0)
 
   let table1 = `
   <table  class="table table-striped table-hover" style="width:100%;">
@@ -122,7 +124,40 @@ function updateOrderView() {
     `
   });
   table1 +=`</table>`
+
+  const table3Array = table1Array.reduce((sum, obj) => {
+    const findIndex =  sum.findIndex(obj2 => obj2.name == obj.name)
+    if (findIndex >　-1){
+      sum[findIndex]["sum"] += obj["sum"]
+    }else{
+      const newObj = Object.assign({}, obj)
+      sum.push(newObj)
+    }
+    return sum
+  }, []) .sort( (a, b) => {
+    return a.name > b.name ? 1 : -1
+  })
+
+  let table3 = `
+  <table  class="table table-striped table-hover" style="width:100%;">
+  <tr>
+    <th>成員名稱</th>
+    <th>數量</th>
+    <th>佔比</th>
+  </tr>`
   
+  table3Array.forEach(element => {
+    table3 += `
+    <tr>
+    <td>${element.name}</td>
+    <td>${element.sum}</td>
+    <td>${(parseFloat(element.sum)/ parseFloat(sum) * 100.0).toLocaleString('en',{maximumFractionDigits: 2} )} %</td>
+  </tr>
+    `
+  });
+  table3 +=`</table>`
+  
+
   const table2Array = table1Array.sort((a, b) => {
     return parseInt(a.round) > parseInt(b.round) ? 1 : -1
   })
@@ -170,7 +205,6 @@ function updateOrderView() {
   });
   table2 +=`</table>`
 
-  const sum = table1Array.reduce((sum , obj) => sum + obj.sum, 0)
 
   let insertHtml = `<div class="row mg-top">
   <div class="">
@@ -179,6 +213,8 @@ function updateOrderView() {
   </div>
   <div class="order_item">
   <div id="ttpTable" style="display:none; margin-top: 12px;">
+  <h3>總計<small style="font-size: 0.75em;">${table3Array.length}位</small></h3>
+  ${table3}
   <h3>依照姓名</h3>
   ${table1}
   <h3 style="margin-top: 12px;">依照部數</h3>
