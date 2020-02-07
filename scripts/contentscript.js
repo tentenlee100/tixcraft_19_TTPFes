@@ -78,12 +78,22 @@ function updateOrderView() {
     if (!(orderInfo.hasOwnProperty("round") && orderInfo.hasOwnProperty("name") )){
       return
     }
+    $(first).find(".order_list").find(".col_2").each((index3, item3) => {
+        if (index3 === 0){
+          // 訂單編號
+          orderInfo["orderNo"] = $(item3).text().trim()
+        }else if (index3 === 1){
+          orderInfo["orderTime"] = $(item3).text().trim()
+        }
 
+    })
     const insertHtml = "<p>第" + orderInfo.round + "部" + "\t" + orderInfo.name + "-" + orderInfo.number + "<p>"
     $(first).find(".order_list").find(".col_5").append( insertHtml )
 
     allOrder.push(orderInfo)
   })
+  console.log(allOrder);
+  
   // 塞入統計報表與按鈕，並製作出表格
 
   const table1Array = allOrder.reduce((sum, obj, nowIndex, array) => {
@@ -124,40 +134,7 @@ function updateOrderView() {
     `
   });
   table1 +=`</table>`
-
-  const table3Array = table1Array.reduce((sum, obj) => {
-    const findIndex =  sum.findIndex(obj2 => obj2.name == obj.name)
-    if (findIndex >　-1){
-      sum[findIndex]["sum"] += obj["sum"]
-    }else{
-      const newObj = Object.assign({}, obj)
-      sum.push(newObj)
-    }
-    return sum
-  }, []) .sort( (a, b) => {
-    return a.name > b.name ? 1 : -1
-  })
-
-  let table3 = `
-  <table  class="table table-striped table-hover" style="width:100%;">
-  <tr>
-    <th>成員名稱</th>
-    <th>數量</th>
-    <th>佔比</th>
-  </tr>`
   
-  table3Array.forEach(element => {
-    table3 += `
-    <tr>
-    <td>${element.name}</td>
-    <td>${element.sum}</td>
-    <td>${(parseFloat(element.sum)/ parseFloat(sum) * 100.0).toLocaleString('en',{maximumFractionDigits: 2} )} %</td>
-  </tr>
-    `
-  });
-  table3 +=`</table>`
-  
-
   const table2Array = table1Array.sort((a, b) => {
     return parseInt(a.round) > parseInt(b.round) ? 1 : -1
   })
@@ -205,6 +182,92 @@ function updateOrderView() {
   });
   table2 +=`</table>`
 
+  const table3Array = table1Array.reduce((sum, obj) => {
+    const findIndex =  sum.findIndex(obj2 => obj2.name == obj.name)
+    if (findIndex >　-1){
+      sum[findIndex]["sum"] += obj["sum"]
+    }else{
+      const newObj = Object.assign({}, obj)
+      sum.push(newObj)
+    }
+    return sum
+  }, []) .sort( (a, b) => {
+    return a.name > b.name ? 1 : -1
+  })
+
+  let table3 = `
+  <table  class="table table-striped table-hover" style="width:100%;">
+  <tr>
+    <th>成員名稱</th>
+    <th>數量</th>
+    <th>佔比</th>
+  </tr>`
+  
+  table3Array.forEach(element => {
+    table3 += `
+    <tr>
+    <td>${element.name}</td>
+    <td>${element.sum}</td>
+    <td>${(parseFloat(element.sum)/ parseFloat(sum) * 100.0).toLocaleString('en',{maximumFractionDigits: 2} )} %</td>
+  </tr>
+    `
+  });
+  table3 +=`</table>`
+
+  const table4Array = table1Array.reduce((sum, obj) => {
+    const findIndex =  sum.findIndex(obj2 => obj2.round == obj.round)
+    if (findIndex >　-1){
+      sum[findIndex]["sum"] += obj["sum"]
+    }else{
+      const newObj = Object.assign({}, obj)
+      sum.push(newObj)
+    }
+    return sum
+  }, []) .sort( (a, b) => {
+    return parseInt(a.round)  > parseInt(b.round) ? 1 : -1
+  })
+
+  let table4 = `
+  <table  class="table table-striped table-hover" style="width:100%;">
+  <tr>
+    <th>部數</th>
+    <th>數量</th>
+  </tr>`
+  
+  table4Array.forEach(element => {
+    table4 += `
+    <tr>
+    <td>`
+    table4 += `第${element.round}部 `
+
+    if (element.round == "1"){
+      table4 += '11:00~12:00  (11:40排隊截止)'
+    }else if (element.round == "2"){
+      table4 += '12:30~13:30  (13:10排隊截止)'
+    }else if (element.round == "3"){
+      table4 += '14:00~15:00  (14:40排隊截止)'
+    }else if (element.round == "4"){
+      table4 += '15:30~16:30  (16:10排隊截止)'
+    }else if (element.round == "5"){
+      table4 += '17:00~18:00  (17:40排隊截止)'
+    }else if (element.round == "6"){
+      table4 += '18:30~19:30  (19:10排隊截止)'
+    }else if (element.round == "7"){
+      table4 += '12:00~13:00  (12:40排隊截止)'
+    }else if (element.round == "8"){
+      table4 += '13:30~14:30  (14:10排隊截止)'
+    }else if (element.round == "9"){
+      table4 += '15:00~16:00  (15:40排隊截止)'
+    }else if (element.round == "10"){
+      table4 += '16:30~17:30  (17:10排隊截止)'
+    }
+    
+    table4 +=  `</td>
+    <td>${element.sum}</td>
+  </tr>
+    `
+  });
+  table4 +=`</table>`
 
   let insertHtml = `<div class="row mg-top">
   <div class="">
@@ -213,12 +276,15 @@ function updateOrderView() {
   </div>
   <div class="order_item">
   <div id="ttpTable" style="display:none; margin-top: 12px;">
+  <button id="downloadExcelButton">下載報表</button>
   <h3>總計<small style="font-size: 0.75em;">${table3Array.length}位</small></h3>
   ${table3}
   <h3>依照姓名</h3>
   ${table1}
   <h3 style="margin-top: 12px;">依照部數</h3>
   ${table2}
+  <h3 style="margin-top: 12px;">部數統計數量</h3>
+  ${table4}
   </div>
 
   </div>
@@ -233,6 +299,71 @@ function updateOrderView() {
       $("#ttpTable").show()
     }
   })
+  $("#downloadExcelButton").click(function(){
+      var wb = XLSX.utils.book_new();
+
+      /* 總計 */ 
+      var data = [
+        ["成員名稱", "數量", "佔比"],
+      ]
+      data = data.concat(table3Array.map(item => {
+        return [item.name, item.sum, (parseFloat(item.sum)/ parseFloat(sum) * 100.0).toLocaleString('en',{maximumFractionDigits: 2} ) + "%"]
+      }))
+      /* make the worksheet */
+      var ws = XLSX.utils.aoa_to_sheet(data);
+      /* add to workbook */
+      XLSX.utils.book_append_sheet(wb, ws, "總計");
+
+      /* 依照姓名 */
+      data = [
+        ["成員名稱", "部數", "數量"],
+      ]
+      data = data.concat(table1Array.map(item => {
+        return [item.name, `第${item.round}部`, item.sum]
+      }))
+      /* make the worksheet */
+      var ws2 = XLSX.utils.aoa_to_sheet(data);
+      /* add to workbook */
+      XLSX.utils.book_append_sheet(wb, ws2, "依照姓名");
+
+      /* 依照部數 */
+      data = [
+        ["部數", "成員名稱", "數量"],
+      ]
+      data = data.concat(table2Array.map(item => {
+        return [`第${item.round}部 `, item.name, item.sum]
+      }))
+      /* make the worksheet */
+      var ws3 = XLSX.utils.aoa_to_sheet(data);
+      /* add to workbook */
+      XLSX.utils.book_append_sheet(wb, ws3, "依照部數");
+
+      /* 部數統計 */
+      data = [
+        ["部數", "數量"],
+      ]
+      data = data.concat(table4Array.map(item => {
+        return [`第${item.round}部 `, item.sum]
+      }))
+      /* make the worksheet */
+      var ws4 = XLSX.utils.aoa_to_sheet(data);
+      XLSX.utils.book_append_sheet(wb, ws4, "部數統計");
+
+      /* 所有訂單資訊 */
+      data = [
+        ["訂單編號", "填寫時間", "部數", "成員名稱" ],
+      ]
+      data = data.concat(allOrder.map(item => {
+        return [item.orderNo, item.orderTime,`第${item.round}部 `, item.name + "-" + item.number ]
+      }))
+      /* make the worksheet */
+      var ws5 = XLSX.utils.aoa_to_sheet(data);
+      XLSX.utils.book_append_sheet(wb, ws5, "所有訂單資料");
+
+      /* generate an XLSX file */
+      XLSX.writeFile(wb, "sheetjs.xlsx");
+  })
+  
 }
 
 function updateInputButtonToAButton(){
