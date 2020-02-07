@@ -17,6 +17,7 @@
         "https://tixcraft.com/*"
       ],
       "js": [
+        "scripts/moment.min.js",
         "scripts/jquery-3.4.1.min.js",
         "scripts/xlsx.full.min.js",
         "scripts/contentscript.js"
