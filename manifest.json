@@ -21,6 +21,7 @@
         "scripts/xlsx.full.min.js",
         "scripts/contentscript.js"
       ],
+      "css": ["styles.css"],
       "run_at": "document_end"
     }
   ]

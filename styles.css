@@ -1,0 +1,32 @@
+#tab-panel {
+    margin: 0 auto;
+    padding-top: 8px;
+    font-family: arial;
+}
+#tab-panel .tabs {
+    margin-bottom: 0px;
+    background: #FFF;
+    overflow: hidden;
+    text-align: center;
+}
+#tab-panel .tabs a {
+    float: left;
+    display: block;
+    width: 25%;
+    padding: 15px 0;
+    border: 1px solid #CCC;
+    font-size: 16px;
+    color: #333;
+    box-sizing: border-box;
+    transition: all .3s;
+}
+#tab-panel .tabs a.active {
+    background: rgb(0, 113, 178);
+    color: #FFF;
+}
+#tab-panel .tab-content > li {
+    margin-top: 8px;
+    display: none;
+    color: #666;
+    line-height: 25px;
+}

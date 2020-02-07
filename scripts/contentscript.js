@@ -269,27 +269,37 @@ function updateOrderView() {
   });
   table4 +=`</table>`
 
-  let insertHtml = `<div class="row mg-top">
-  <div class="">
-  <button id="showOrderButton">顯示 Team TP 握手會 報表</button>
-  <small style="margin-left: 12px;">共${sum}張</small>
-  </div>
-  <div class="order_item">
-  <div id="ttpTable" style="display:none; margin-top: 12px;">
-  <button id="downloadExcelButton">下載報表</button>
-  <h3>總計<small style="font-size: 0.75em;">${table3Array.length}位</small></h3>
-  ${table3}
-  <h3>依照姓名</h3>
-  ${table1}
-  <h3 style="margin-top: 12px;">依照部數</h3>
-  ${table2}
-  <h3 style="margin-top: 12px;">部數統計數量</h3>
-  ${table4}
-  </div>
+  let insertHtml = `
+  <div class="row mg-top">
+    <div class="">
+      <button id="showOrderButton">顯示 Team TP 握手會 報表</button>
+      <small style="margin-left: 12px;">共${sum}張</small>
+    </div>
+    <div class="order_item">
+      <div id="ttpTable" style="display:none; margin-top: 12px;">
+        <div style="width: 100%; height: 42px;">
+          <button class="btn btn-success" id="downloadExcelButton" style="float:right;">下載excel報表</button>
+        </div>
+        <div id="tab-panel">
+          <div class="tabs">
+            <a><span>總計</span></a>
+            <a><span>依照姓名</span></a>
+            <a><span>依照部數</span></a>
+            <a><span>部數統計數量</span></a>
 
-  </div>
-  
-    </div>`
+          </div>
+          <ul class="tab-content">
+            <li><div><small>共${table3Array.length}位</small></div>${table3}</li>
+            <li>
+            ${table1}
+            </li>
+            <li>${table2}</li>
+            <li>${table4}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>`
   $('#content').prepend(insertHtml)
 
   $("#showOrderButton").click(function(){
@@ -460,4 +470,21 @@ function main() {
 
 main()
 
+
+$(function(){
+  var $tabPanel = $('#tab-panel') ,
+      $tabs = $tabPanel.find('.tabs') ,
+      $tab = $tabs.find('a') ,
+      $tabContent = $tabPanel.find('.tab-content') ,
+      $content = $tabContent.find('> li');
+   
+  $tab.eq(0).addClass('active');
+  $content.eq(0).show();
+   
+  $tab.on('click',function(){
+      var $tabIndex = $(this).index();
+      $(this).addClass('active').siblings().removeClass('active');
+      $content.eq($tabIndex).show().siblings().hide();
+  });
+});
 
