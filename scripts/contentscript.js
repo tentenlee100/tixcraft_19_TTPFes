@@ -144,25 +144,27 @@ function updateOrderView() {
     <td>`
     table2 += `第${element.round}部 `
     if (element.round == "1"){
-      table2 += '11:00~12:00  (11:40排隊截止)'
+      table2 += '04/11 11:00~12:00  (11:40排隊截止)'
     }else if (element.round == "2"){
-      table2 += '12:30~13:30  (13:10排隊截止)'
+      table2 += '04/11 12:30~13:30  (13:10排隊截止)'
     }else if (element.round == "3"){
-      table2 += '14:00~15:00  (14:40排隊截止)'
+      table2 += '04/11 14:00~15:00  (14:40排隊截止)'
     }else if (element.round == "4"){
-      table2 += '15:30~16:30  (16:10排隊截止)'
+      table2 += '04/11 15:30~16:30  (16:10排隊截止)'
     }else if (element.round == "5"){
-      table2 += '17:00~18:00  (17:40排隊截止)'
+      table2 += '04/11 17:00~18:00  (17:40排隊截止)'
     }else if (element.round == "6"){
-      table2 += '18:30~19:30  (19:10排隊截止)'
+      table2 += '04/11 18:30~19:30  (19:10排隊截止)'
     }else if (element.round == "7"){
-      table2 += '12:00~13:00  (12:40排隊截止)'
+      table2 += '04/12 12:30~13:30  (13:10排隊截止)'
     }else if (element.round == "8"){
-      table2 += '13:30~14:30  (14:10排隊截止)'
+      table2 += '04/12 14:00~15:00  (14:40排隊截止)'
     }else if (element.round == "9"){
-      table2 += '15:00~16:00  (15:40排隊截止)'
+      table2 += '04/12 15:30~16:30  (16:10排隊截止)'
     }else if (element.round == "10"){
-      table2 += '16:30~17:30  (17:10排隊截止)'
+      table2 += '04/12 17:00~18:00  (17:40排隊截止)'
+    }else if (element.round == "11"){
+      table2 += '04/12 11:00~12:00  (11:40排隊截止)'
     }
     
     table2 += `</td>
@@ -232,25 +234,27 @@ function updateOrderView() {
     table4 += `第${element.round}部 `
 
     if (element.round == "1"){
-      table4 += '11:00~12:00  (11:40排隊截止)'
+      table4 += '04/11 11:00~12:00  (11:40排隊截止)'
     }else if (element.round == "2"){
-      table4 += '12:30~13:30  (13:10排隊截止)'
+      table4 += '04/11 12:30~13:30  (13:10排隊截止)'
     }else if (element.round == "3"){
-      table4 += '14:00~15:00  (14:40排隊截止)'
+      table4 += '04/11 14:00~15:00  (14:40排隊截止)'
     }else if (element.round == "4"){
-      table4 += '15:30~16:30  (16:10排隊截止)'
+      table4 += '04/11 15:30~16:30  (16:10排隊截止)'
     }else if (element.round == "5"){
-      table4 += '17:00~18:00  (17:40排隊截止)'
+      table4 += '04/11 17:00~18:00  (17:40排隊截止)'
     }else if (element.round == "6"){
-      table4 += '18:30~19:30  (19:10排隊截止)'
+      table4 += '04/11 18:30~19:30  (19:10排隊截止)'
     }else if (element.round == "7"){
-      table4 += '12:00~13:00  (12:40排隊截止)'
+      table4 += '04/12 12:30~13:30  (13:10排隊截止)'
     }else if (element.round == "8"){
-      table4 += '13:30~14:30  (14:10排隊截止)'
+      table4 += '04/12 14:00~15:00  (14:40排隊截止)'
     }else if (element.round == "9"){
-      table4 += '15:00~16:00  (15:40排隊截止)'
+      table4 += '04/12 15:30~16:30  (16:10排隊截止)'
     }else if (element.round == "10"){
-      table4 += '16:30~17:30  (17:10排隊截止)'
+      table4 += '04/12 17:00~18:00  (17:40排隊截止)'
+    }else if (element.round == "11"){
+      table4 += '04/12 11:00~12:00  (11:40排隊截止)'
     }
     
     table4 +=  `</td>
