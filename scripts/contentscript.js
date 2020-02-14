@@ -34,51 +34,43 @@ function updateOrderView() {
   // 取得左右訂單資料，並修改購買節目名稱
   let allOrder = []
   $('.order_item').each((index, item) => {
-    let first = null
     const orderInfo = {}
-    $(item).find(".order_tb").each((index2, item2) => {
-        if (index2 === 0){
-          first = item2
+    $(item).find(".ticket_detail").find(".repo_bg").children().each((index2, item2) => {
+      if (index2 === 0){
+        //第一個欄位
+        const text = $(item2).text().trim()        
+        const findIndex =  text.indexOf("【第")
+        const endIndex =  text.indexOf("部】")
+        if(findIndex === -1 || endIndex === -1){
+          if (orderInfo.hasOwnProperty("round")){
+            delete orderInfo.round
+          }
           return
-        }
-        $(item2).find(".repo_bg").children().each((index3, item3) => {
-            if(index3 === 0){
-              //第一個欄位
-              const text = $(item3).text()
-              const findIndex =  text.indexOf("【第")
-              const endIndex =  text.indexOf("部】")
-              if(findIndex === -1 || endIndex === -1){
-                if (orderInfo.hasOwnProperty("round")){
-                  delete orderInfo.round
-                }
-                return
-              } 
-              orderInfo["round"] = text.substring(findIndex + "【第".length , endIndex )
-            }else if (index3 === 1){
-              //第一個欄位
-              const text = $(item3).text()
-              const findIndex =  text.indexOf("5號倉庫 / ")
-              if(findIndex === -1 ){
-                if (orderInfo.hasOwnProperty("name")){
-                  delete orderInfo.name
-                }
-                if (orderInfo.hasOwnProperty("number")){
-                  delete orderInfo.number
-                }
-                return
-              } 
-              const name = text.substring(findIndex + "5號倉庫 / ".length ).trim()
-              orderInfo["name"] = name.split("-")[0]
-              orderInfo["number"] = name.split("-")[1]
-
-            }
-        })
+        } 
+        orderInfo["round"] = text.substring(findIndex + "【第".length , endIndex )        
+      }else if (index2 === 1){
+        //第一個欄位
+        const text = $(item2).text().trim()        
+        const findIndex =  text.indexOf("倉庫 / ")
+        if(findIndex === -1 ){
+          if (orderInfo.hasOwnProperty("name")){
+            delete orderInfo.name
+          }
+          if (orderInfo.hasOwnProperty("number")){
+            delete orderInfo.number
+          }
+          return
+        } 
+        const name = text.substring(findIndex + "倉庫 / ".length ).trim()
+        orderInfo["name"] = name.split("-")[0]
+        orderInfo["number"] = name.split("-")[1]
+      }
     })
 
     if (!(orderInfo.hasOwnProperty("round") && orderInfo.hasOwnProperty("name") )){
       return
     }
-    $(first).find(".order_list").find(".col_2").each((index3, item3) => {
+    $(item).find(".order_list").find(".col_2").each((index3, item3) => {
         if (index3 === 0){
           // 訂單編號
           orderInfo["orderNo"] = $(item3).text().trim()
@@ -88,11 +80,10 @@ function updateOrderView() {
 
     })
     const insertHtml = "<p>第" + orderInfo.round + "部" + "\t" + orderInfo.name + "-" + orderInfo.number + "<p>"
-    $(first).find(".order_list").find(".col_5").append( insertHtml )
-
+    $(item).find(".order_list").find(".col_5").append( insertHtml )
+  
     allOrder.push(orderInfo)
   })
-  console.log(allOrder);
   
   // 塞入統計報表與按鈕，並製作出表格
 
